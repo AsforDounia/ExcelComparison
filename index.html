@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comparaison Excel - Qté facturées vs Poids net</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">📊 Comparaison Excel</h1>
+
+    <div class="upload-section">
+      <div class="file-input">
+        <label for="file1">📁 Fichier 1 (Produits / Camions / Qté facturées) :</label>
+        <input type="file" id="file1" accept=".xlsx,.xls,.csv" />
+        <span id="file1-status" class="file-status"></span>
+      </div>
+      <div class="file-input">
+        <label for="file2">📁 Fichier 2 (Ressource / Total poids net) :</label>
+        <input type="file" id="file2" accept=".xlsx,.xls,.csv" />
+        <span id="file2-status" class="file-status"></span>
+      </div>
+    </div>
+
+    <div class="btn-container">
+        <button id="compare-btn" class="btn" disabled>🔍 Comparer</button>
+    </div>
+
+    <div id="summary" class="summary hidden">
+      <div class="summary-card total">
+        <span class="summary-number" id="total-count">0</span>
+        <span class="summary-label">Camions trouvés</span>
+      </div>
+      <div class="summary-card match">
+        <span class="summary-number" id="match-count">0</span>
+        <span class="summary-label">Correspondent ✅</span>
+      </div>
+      <div class="summary-card diff">
+        <span class="summary-number" id="diff-count">0</span>
+        <span class="summary-label">Différences ❌</span>
+      </div>
+      <div class="summary-card notfound">
+        <span class="summary-number" id="notfound-count">0</span>
+        <span class="summary-label">Non trouvés ⚠️</span>
+      </div>
+    </div>
+
+    <div id="results" class="results hidden">
+      <h2>Détail des différences</h2>
+      <table id="diff-table">
+        <thead>
+          <tr>
+            <th>Camion / Réf. interne</th>
+            <th>Produit (Fichier 1)</th>
+            <th>Qté facturées (F1)</th>
+            <th>Total poids net (F2)</th>
+            <th>Écart</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody id="diff-tbody"></tbody>
+      </table>
+    </div>
+
+    <div id="not-found-section" class="results hidden">
+      <h2>Camions non trouvés dans Fichier 2</h2>
+      <table id="notfound-table">
+        <thead>
+          <tr>
+            <th>Camion</th>
+            <th>Produit</th>
+            <th>Qté facturées</th>
+          </tr>
+        </thead>
+        <tbody id="notfound-tbody"></tbody>
+      </table>
+    </div>
+
+    <p id="no-diff" class="hidden">✅ Aucune différence trouvée ! Toutes les Qté facturées correspondent aux Total poids net.</p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
