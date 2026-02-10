@@ -102,7 +102,7 @@ function compareFiles() {
 
   const refMap = new Map();
   data2.forEach((row) => {
-    const ref = String(row[colRef] ?? '').trim();
+    const ref = String(row[colRef] ?? '').trim().replace(/\s/g, '');
     if (ref) {
       if (refMap.has(ref)) {
         const existing = refMap.get(ref);
@@ -122,7 +122,7 @@ function compareFiles() {
   let matchCount = 0;
 
   data1.forEach((row1) => {
-    const camion = String(row1[colCamions] ?? '').trim();
+    const camion = String(row1[colCamions] ?? '').trim().replace(/\s/g, '');
     if (!camion) return;
 
     const qte = parseNumber(row1[colQte]);
